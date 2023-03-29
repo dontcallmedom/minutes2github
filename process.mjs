@@ -1,6 +1,7 @@
 import {JSDOM} from "jsdom";
 import fs from "fs";
 import {parseMinutes} from "./lib/parse-minutes.mjs";
+import {Octokit} from "./octokit.mjs";
 import {updateGithub} from "./lib/github-comments.mjs";
 const isMainModule = import.meta.url.endsWith(process.argv[1]);
 
@@ -27,11 +28,15 @@ if (isMainModule) {
       console.error("No github token set, can't submit comments");
       process.exit(2);
     }
+    const octokit = new Octokit({
+      auth: GH_TOKEN,
+      //log: console
+    });
     minutesUrl = process.argv[2];
   }
   JSDOM.fromURL(minutesUrl).then(dom =>
     parseMinutes(dom.window.document, minutesUrl)
-  ).then(res => updateGithub({...res, GH_TOKEN, dryRun}))
+  ).then(res => updateGithub(octokit, {...res, GH_TOKEN, dryRun}))
     .catch(err => {
       console.error(err);
       process.exit(2);

@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <title>minutes2github - update github issues discussed during minuted meetings</title>
+  <style>
+    #log { color: red;}
+    #log2 { color: green;}
+    pre { white-space: pre-wrap; }
+  </style>
+  <script type="module" src="script.js"></script>
+  <body>
+    <h1>minutes2github</h1>
+    <p>This tool parses HTML minutes and links back from these github issues to the minutes</p>
+    <form>
+      <label>URL of the minutes: <input type="url" id=minutes></label>
+      <button disabled type="submit" id="show">Show issues linked from the minutes</button>
+    </form>
+    <div id=log></div>
+    <p>The form below requires a Github Personal Access Token, which you can obtain from your Github profile settings under "Developer Settings" &gt; "Personal access tokens" &gt; "Tokens (classic)"; it needs the "public_repo" scope.</p>
+    <p><strong>NB</strong>: you can manually verify that this page is not sending or recording this token anywhere, but in general, beware that sharing such a token is sharing a lot of your Github privileges.</p>
+    <form id="output">
+      <label>Github personal access token: <input type="password" disabled id="pat"></label>
+      <template id="entry">
+	<li><label><input name=issues type=checkbox checked> Update <a></a></label> with the following comment:<blockquote><pre></pre></blockquote></li>
+      </template>
+      <p><button disabled type="submit" id="post">Post selected items as comments on github issues</button></p>
+    </form>
+    <div id="log2"></div>
+  </body>
+</html>
