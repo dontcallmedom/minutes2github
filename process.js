@@ -73,11 +73,11 @@ async function parseMinutes(url) {
     const link = a.href.split("#")[0];
     // have they been already handled?
     if (foundLinks.has(link)) return;
-
     // is this in a heading? if so, this counts as discussed, otherwise as mentioned
     let heading = a.closest(headingSelector);
     if (heading) {
       annotatedLinks.push({link, context: {id: heading.id, title: heading.textContent}, type: "discussed"});
+      foundLinks.add(link);
     } else if (!a.closest(".irc"))
       // in scribe.perl, IRC comments are not correctible
       // so not sure we should include URLs from them
@@ -85,6 +85,7 @@ async function parseMinutes(url) {
       let heading = getCurrentHeading(a);
       const context = heading ? {id: heading.id, title: heading.textContent} : undefined;
       annotatedLinks.push({link, context, type: "mentioned"});
+      foundLinks.add(link);
     }
   });
   return {url, title, annotatedLinks};
