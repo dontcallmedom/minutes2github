@@ -14,12 +14,12 @@ npm install
 ## Run
 You need a Github personal access token that can post on the relevant repositories. You can either set this in a `config.json` file under the key `GH_TOKEN`, or use the `GH_TOKEN` environment variable
 ```
-GH_TOKEN=ghp_<mytoken> node process.js <url_of_the_minutes>
+GH_TOKEN=ghp_<mytoken> node process.mjs <url_of_the_minutes>
 ```
 
 See example output at https://github.com/w3c/webrtc-encoded-transform/issues/172#issuecomment-1488106611
 
 To run it without actually updating github issues (e.g. to check what it would do) you can run it as:
 ```
-node process.js --dry-run <url_of_the_minutes>
+node process.mjs --dry-run <url_of_the_minutes>
 ```
