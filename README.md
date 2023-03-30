@@ -30,7 +30,7 @@ Once the minutes have been fetched and parsed, the UI allows to review the comme
 The Github personal access token can either be set in a `config.json` file under the key `GH_TOKEN`, or be provided via the `GH_TOKEN` environment variable
 
 ```
-GH_TOKEN=ghp_<mytoken> node process.mjs <url_of_the_minutes>
+GH_TOKEN=ghp_<mytoken> node process.mjs <url_of_the_minutes> [<more_urls>...]
 ```
 
 To run it without actually updating github issues (e.g. to check what it would do) you can run it as:
