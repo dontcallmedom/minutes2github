@@ -1,7 +1,7 @@
 import {JSDOM} from "jsdom";
 import fs from "fs";
 import {parseMinutes} from "./lib/parse-minutes.mjs";
-import {Octokit} from "./octokit.mjs";
+import {Octokit} from "./lib/octokit.mjs";
 import {updateGithub} from "./lib/github-comments.mjs";
 const isMainModule = import.meta.url.endsWith(process.argv[1]);
 
