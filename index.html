@@ -11,14 +11,14 @@
     <h1>minutes2github</h1>
     <p>This tool parses HTML minutes and links back from these github issues to the minutes</p>
     <form>
-      <label>URL of the minutes: <input type="url" id=minutes></label>
+      <label>URL of the minutes: <input type="url" id=minutes required></label>
       <button disabled type="submit" id="show" aria-controls="output">Show issues linked from the minutes</button>
     </form>
     <div id=log aria-live=polite></div>
     <p>The form below requires a Github Personal Access Token, which you can obtain from your Github profile settings under "Developer Settings" &gt; "Personal access tokens" &gt; "Tokens (classic)"; it needs the "public_repo" scope.</p>
     <p><strong>NB</strong>: you can manually verify that this page is not sending or recording this token anywhere, but in general, beware that sharing such a token is sharing a lot of your Github privileges.</p>
     <form id="output">
-      <label>Github personal access token: <input type="password" disabled id="pat"></label>
+      <label>Github personal access token: <input type="password" disabled id="pat" required></label>
       <template id="entry">
 	<li><label><input name=issues type=checkbox checked> Update <a></a></label> with the following comment:<blockquote><pre></pre></blockquote></li>
       </template>
