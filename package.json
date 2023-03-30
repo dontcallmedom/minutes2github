@@ -14,5 +14,11 @@
     "@octokit/plugin-throttling": "^5.0.1",
     "@octokit/rest": "^19.0.7",
     "jsdom": "^21.1.1"
+  },
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  },
+  "scripts": {
+    "test": "mocha --recursive"
   }
 }
