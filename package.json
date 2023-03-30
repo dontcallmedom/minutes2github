@@ -1,0 +1,18 @@
+{
+  "name": "minutes2github",
+  "author": {
+    "name": "Dominique Hazael-Massieux",
+    "email": "dom@w3.org"
+  },
+  "description": "Update github issues with links to relevant minutes",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dontcallmedom/minutes2github.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/plugin-throttling": "^5.0.1",
+    "@octokit/rest": "^19.0.7",
+    "jsdom": "^21.1.1"
+  }
+}
