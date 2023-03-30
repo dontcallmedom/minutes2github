@@ -12,7 +12,7 @@ const patInput = document.getElementById("pat");
 
 const outputForm = document.getElementById("output");
 
-let results;
+let annotatedLinks;
 
 const isReadyToSubmit = () => [...outputForm.querySelectorAll('input[type=checkbox]')].some(el => el.checked && !el.disabled) && !!patInput.value;
 
@@ -40,14 +40,12 @@ showBtn.addEventListener("click", async function(e) {
   patInput.disabled = false;
   doc.innerHTML = html;
   const title = doc.querySelector("title").textContent;
-  results = await parseMinutes(doc, minutesUrl);
-  const {annotatedLinks} = results;
-  console.log(annotatedLinks);
+  annotatedLinks = parseMinutes(doc, minutesUrl);
   if (annotatedLinks.length > 0) {
     postBtn.disabled = true;
     const ul = document.createElement("ul");
     for (const annotatedLink of annotatedLinks) {
-      const comment = formatGithubComment(annotatedLink, minutesUrl, title);
+      const comment = formatGithubComment([annotatedLink]);
       const entry = document.importNode(entryTmpl.content, true);
       entry.querySelector("input").value = annotatedLink.link;
       entry.querySelector("a").href = annotatedLink.link;
@@ -71,10 +69,9 @@ postBtn.addEventListener("click", async function(e) {
     auth: patInput.value,
   });
   // Filter results based on selected checkboxes
-  const filteredResults = {...results};
-  filteredResults.annotatedLinks = filteredResults.annotatedLinks
+  const filteredResults = annotatedLinks
     .filter(l => outputForm.querySelector(`input:checked[value="${l.link}"]`));
-  await updateGithub(octokit, {...filteredResults});
+  await updateGithub(octokit, filteredResults);
   // TODO: deal with errors in submission
   filteredResults.annotatedLinks.forEach(l => {
     outputForm.querySelector(`input:checked[value="${l.link}"]`).disabled = true;

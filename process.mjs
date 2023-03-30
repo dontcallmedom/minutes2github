@@ -11,10 +11,10 @@ let GH_TOKEN, octokit;
 
 
 if (isMainModule) {
-  let minutesUrl;
+  let minutesUrls = [];
   if (process.argv[2] === "--dry-run") {
     dryRun = true;
-    minutesUrl = process.argv[3];
+    minutesUrls = process.argv.slice(3);
   } else {
     GH_TOKEN = (() => {
       try {
@@ -32,13 +32,18 @@ if (isMainModule) {
       auth: GH_TOKEN,
       //log: console
     });
-    minutesUrl = process.argv[2];
+    minutesUrls = process.argv.slice(2);
   }
-  JSDOM.fromURL(minutesUrl).then(dom =>
-    parseMinutes(dom.window.document, minutesUrl)
-  ).then(res => updateGithub(octokit, {...res, GH_TOKEN, dryRun}))
+  Promise.all(
+    minutesUrls.map(minutesUrl => JSDOM.fromURL(minutesUrl)
+			.then(dom => parseMinutes(dom.window.document, minutesUrl))
+		       )
+  )
+    .then(res => updateGithub(octokit, res.flat(), {dryRun}))
     .catch(err => {
       console.error(err);
       process.exit(2);
     });
 }
+
+
