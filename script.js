@@ -32,15 +32,23 @@ showBtn.addEventListener("click", async function(e) {
   logEl.textContent = "";
 
   const minutesUrl = urlInput.value;
-  const doc = document.createElement("html");
+  const htmlEl = document.createElement("html");
+  const doc = new Document();
   const html = await fetch(minutesUrl).then(r => r.text())
 	.catch(err => logEl.textContent = `Fetching ${minutesUrl} failed: ${err}`);
   if (!html) return;
 
   patInput.disabled = false;
-  doc.innerHTML = html;
+  htmlEl.innerHTML = html;
+  // Set base URI if none is set
+  if (!htmlEl.querySelector("base")) {
+    const base = document.createElement("base");
+    base.href= minutesUrl;
+    htmlEl.querySelector("head").prepend(base);
+  }
+  doc.appendChild(htmlEl);
   const title = doc.querySelector("title").textContent;
-  annotatedLinks = parseMinutes(doc, minutesUrl);
+  annotatedLinks = await parseMinutes(doc, minutesUrl);
   if (annotatedLinks.length > 0) {
     postBtn.disabled = true;
     const ul = document.createElement("ul");
