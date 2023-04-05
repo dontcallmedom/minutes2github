@@ -36,7 +36,7 @@ if (isMainModule) {
   }
   Promise.all(
     minutesUrls.map(minutesUrl => JSDOM.fromURL(minutesUrl)
-			.then(dom => parseMinutes(dom.window.document, minutesUrl))
+		    .then(dom => parseMinutes(dom.window.document, minutesUrl))
 		       )
   )
     .then(res => updateGithub(octokit, res.flat(), {dryRun}))

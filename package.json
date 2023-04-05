@@ -9,13 +9,19 @@
     "type": "git",
     "url": "https://github.com/dontcallmedom/minutes2github.git"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "license": "MIT",
   "dependencies": {
     "@octokit/plugin-throttling": "^5.0.1",
     "@octokit/rest": "^19.0.7",
-    "jsdom": "^21.1.1"
+    "jsdom": "^21.1.1",
+    "node-fetch": "^3.3.1",
+    "pdf.js-extract": "^0.2.1"
   },
   "devDependencies": {
+    "http-server": "^14.1.1",
     "mocha": "^10.2.0"
   },
   "scripts": {

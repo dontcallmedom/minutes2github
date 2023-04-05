@@ -1,6 +1,8 @@
 This software allows to parse HTML minutes of a meeting (only tested with the output of W3C's [scribe.perl](https://github.com/w3c/scribe2/) at the moment) and update github issues and pull requests that were discussed in the said meeting. When it finds an issue with a resolution, it copied the said resolution in the comment it posts on the issue.
 
-This is very similar to [David Baron's WGMeeting IRC bot](https://github.com/dbaron/wgmeeting-github-ircbot), but instead of operating live on IRC, it can be run on minutes post-facto (including after they've been edited as necessary) and can be used for meetings that don't rely on IRC minutes.
+If it finds PDF slides linked from the minutes using [scribe.perl `Slideset:`](https://w3c.github.io/scribe2/scribedoc.html#slides) convention, it will also report links to github issues from the said slides.
+
+The overall goal is very similar to [David Baron's WGMeeting IRC bot](https://github.com/dbaron/wgmeeting-github-ircbot), but instead of operating live on IRC, it can be run on minutes post-facto (including after they've been edited as necessary) and can be used for meetings that don't rely on IRC minutes.
 
 It's also inspired from [Richard Ishida mins2issue](https://github.com/r12a/mins2issue), but automates the process.
 
