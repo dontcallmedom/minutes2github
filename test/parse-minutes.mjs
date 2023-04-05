@@ -7,7 +7,7 @@ describe("the minutes parser", function() {
     const dom = await JSDOM.fromFile("test/minutes.html");
     const doc = dom.window.document;
     const results = parseMinutes(doc, "minutes.html");
-    assert.equal(results.length, 3, "Three github link detected in the minute");
+    assert.equal(results.length, 4, "Four github link detected in the minute");
     assert.equal(results[0].url, "minutes.html", "URL of minutes in the results");
     assert.equal(results[0].title, "Test Minutes", "Title of minutes in the results");
     assert.equal(results[0].link, "https://github.com/dontcallmedom/minutes2github/issues/1", "Proper link found in the results");
@@ -19,6 +19,9 @@ describe("the minutes parser", function() {
     assert.equal(results[2].link, "https://github.com/gpuweb/gpuweb/issues/3875", "Proper link found in the results");
     assert.equal(results[2].type, "discussed", "Link detected as a discussion item");
     assert.equal(results[2].context.id, "x04", "Proper heading associated to the link found in the results");
+    assert.equal(results[3].link, "https://github.com/gpuweb/gpuweb/issues/3812", "Proper link found in the results");
+    assert.equal(results[3].type, "mentioned", "Link detected as a discussion item");
+    assert.equal(results[3].context?.id, "x04", "Proper heading associated to the link found in the results");
 
   });
 });
