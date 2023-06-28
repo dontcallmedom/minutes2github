@@ -11,7 +11,17 @@ let GH_TOKEN, octokit;
 
 
 if (isMainModule) {
-  let minutesUrls = [];
+  let minutesUrls = [], octokit;
+  const ignoreRepos = (() => {
+      try {
+	const config = JSON.parse(fs.readFileSync("./config.json", "utf-8"));
+	return config.ignore;
+      } catch (err) {
+	console.error(err);
+	return [];
+      }
+    })();
+
   if (process.argv[2] === "--dry-run") {
     dryRun = true;
     minutesUrls = process.argv.slice(3);
@@ -28,7 +38,7 @@ if (isMainModule) {
       console.error("No github token set, can't submit comments");
       process.exit(2);
     }
-    const octokit = new Octokit({
+    octokit = new Octokit({
       auth: GH_TOKEN,
       //log: console
     });
@@ -39,7 +49,7 @@ if (isMainModule) {
 		    .then(dom => parseMinutes(dom.window.document, minutesUrl))
 		       )
   )
-    .then(res => updateGithub(octokit, res.flat(), {dryRun}))
+    .then(res => updateGithub(octokit, res.flat(), {dryRun, ignoreRepos}))
     .catch(err => {
       console.error(err);
       process.exit(2);
