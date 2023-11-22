@@ -16,6 +16,7 @@
   "dependencies": {
     "@octokit/plugin-throttling": "^5.0.1",
     "@octokit/rest": "^19.0.7",
+    "commander": "^11.1.0",
     "jsdom": "^21.1.1",
     "node-fetch": "^3.3.1",
     "pdf.js-extract": "^0.2.1"
